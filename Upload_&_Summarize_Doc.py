@@ -28,10 +28,10 @@ def dict_from_string(response):
 def load_data(file, file_name):
     # check extension of the filename
     if file_name.endswith('.pdf'):
-        PDFReader = download_loader("PDFReader")
+        PDFReader = download_loader("PDFReader", custom_path=os.getcwd())
         loader = PDFReader()
     elif file_name.endswith('.docx'):
-        DocxReader = download_loader("DocxReader")
+        DocxReader = download_loader("DocxReader", custom_path=os.getcwd())
         loader = DocxReader()
 
     docs = loader.load_data(file)
