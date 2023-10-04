@@ -65,15 +65,6 @@ page_bg_img = f"""
 </style>
 """
 
-sidebar_bg_img = f"""
-<style>
-  [data-testid="stSidebar"] {{
-    background: rgba(0,0,0,0);
-  }}
-</style>
-"""
-
-st.markdown(sidebar_bg_img, unsafe_allow_html=True)
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 openai.api_key = st.secrets["openai_credentials"]["openai_key"]
