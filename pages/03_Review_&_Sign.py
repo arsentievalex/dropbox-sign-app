@@ -29,18 +29,7 @@ page_bg_img = f"""
 </style>
 """
 
-sidebar_bg_img = f"""
-<style>
-  /* Existing CSS for background image */
-  [data-testid="stSidebar"] {{
-    background: rgba(0,0,0,0);
-  }}
-</style>
-"""
-
-st.markdown(sidebar_bg_img, unsafe_allow_html=True)
 st.markdown(page_bg_img, unsafe_allow_html=True)
-
 
 # initialize to avoid errors
 if 'file_name' not in st.session_state.keys():
