@@ -1,4 +1,4 @@
-git+https://github.com/arsentievalex/streamlit/lib.git@develop
+git+https://github.com/arsentievalex/streamlit/git#egg=streamlit&subdirectory=lib
 openai==0.27.5
 llama-index==0.8.21
 dropbox_sign==1.1.1
