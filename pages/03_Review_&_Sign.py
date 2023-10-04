@@ -46,7 +46,10 @@ if st.session_state['file_name'] is not None:
         email = st.text_input('Your Email Address')
         click = st.button('Review and Sign')
 
-    if click and name and email:
+    if click and not name or not email:
+        st.error('Please enter your name and email address.')
+    
+    elif click and name and email:
         configuration = Configuration(
             # Configure HTTP basic authorization: api_key
             username=st.secrets["dropbox_credentials"]["username"])
