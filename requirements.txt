@@ -2,3 +2,5 @@ streamlit
 openai==0.27.5
 llama-index==0.8.21
 dropbox_sign==1.1.1
+docx2txt
+pypdf
