@@ -7,6 +7,7 @@ import time
 
 
 def callback(signature_request_id):
+    time.sleep(15)
     response = signature_request_api.signature_request_files_as_file_url(signature_request_id)
     with st.sidebar:
         st.link_button(label='Download Signed Document', url=response['file_url'])
