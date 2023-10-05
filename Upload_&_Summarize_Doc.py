@@ -26,13 +26,8 @@ def dict_from_string(response):
 
 @st.cache_resource(show_spinner=False)
 def load_data(file, file_name):
-    # check extension of the filename
-    if file_name.endswith('.pdf'):
-        PDFReader = download_loader("PDFReader", custom_path=os.getcwd())
-        loader = PDFReader()
-    elif file_name.endswith('.docx'):
-        DocxReader = download_loader("DocxReader", custom_path=os.getcwd())
-        loader = DocxReader()
+    PDFReader = download_loader("PDFReader", custom_path=os.getcwd())
+    loader = PDFReader()
 
     docs = loader.load_data(file)
     service_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0,
@@ -40,9 +35,9 @@ def load_data(file, file_name):
     index = VectorStoreIndex.from_documents(docs, service_context=service_context)
     return index
 
-st.set_page_config(page_title="ProSign - AI Powered Contract Review & Signing", page_icon="📝", layout="wide",
-                   initial_sidebar_state="auto", menu_items=None)
 
+st.set_page_config(page_title="ProSign - AI Powered NDA Review & Signing", page_icon="📝", layout="wide",
+                   initial_sidebar_state="auto", menu_items=None)
 
 page_bg_img = f"""
 <style>
@@ -79,12 +74,15 @@ if 'response_dict' not in st.session_state.keys():
 if 'index' not in st.session_state.keys():
     st.session_state['index'] = None
 
-st.title("ProSign - AI Powered Contract Review & Signing 📝")
+st.title("ProSign - AI Powered NDA Review & Signing 📝")
 st.write('')
 
 if st.session_state['file_name'] is None:
     with st.sidebar:
-        uploaded_file = st.file_uploader("Upload a document to get started 👇", type=["pdf", "docx"])
+        uploaded_file = st.file_uploader("Upload a document to get started 👇", type=["pdf"])
+
+        # use sample file
+        st.toggle('Use sample file')
 else:
     uploaded_file = None
 
@@ -101,7 +99,7 @@ if uploaded_file is not None and st.session_state['response_dict'] is None:
 
         prompt = """
         Answer the following questions about the document:
-        
+
         Who are the signing parties?
         What is the effective date of the agreement?
         What is the duration of the agreement?
@@ -109,9 +107,11 @@ if uploaded_file is not None and st.session_state['response_dict'] is None:
         What exactly are my obligations as the recipient of the confidential information?
         Are there any actions or activities restricted by this NDA?
         What are the consequences if there is a breach of the NDA?
-        Does the document include any uncommon practices?       
-    
-        Return output as Python dictionary with questions as keys and responses as values. Be precise and concise. Use simple English.
+        Does the document include any uncommon practices?
+
+        Return output as Python dictionary with questions as keys and responses as values. 
+        Do not use comma as thousands separator.
+        Be precise and concise. Use simple English.
         """
 
         # get response from GPT
@@ -158,9 +158,7 @@ footer_html = """
             text-decoration: none;
         }
     </style>
-        Made for Dropbox Sign AI Hackathon 2023. Powered by LlamaIndex 🦙
+        Made for Dropbox Sign AI Hackathon 2023. Powered by LlamaIndex and OpenAI.
     </div>
 """
 st.markdown(footer_html, unsafe_allow_html=True)
-
-
