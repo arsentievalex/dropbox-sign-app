@@ -5,7 +5,8 @@ from llama_index.llms import OpenAI
 import openai
 import os
 
-st.set_page_config(page_title="ProSign - AI Powered Contract Review & Signing", page_icon="📝", layout="wide",
+
+st.set_page_config(page_title="ProSign - AI Powered NDA Review & Signing", page_icon="📝", layout="wide",
                    initial_sidebar_state="auto", menu_items=None)
 
 page_bg_img = f"""
@@ -39,7 +40,7 @@ if 'file_name' not in st.session_state.keys():
 if 'index' not in st.session_state.keys():
     st.session_state['index'] = None
 
-st.title("ProSign - AI Powered Contract Review & Signing 📝")
+st.title("ProSign - AI Powered NDA Review & Signing 📝")
 
 if "messages" not in st.session_state.keys():  # Initialize the chat messages history
     st.session_state.messages = [
@@ -87,7 +88,9 @@ footer_html = """
             text-decoration: none;
         }
     </style>
-        Made for Dropbox Sign AI Hackathon 2023. Powered by LlamaIndex 🦙
+        Made for Dropbox Sign AI Hackathon 2023. Powered by LlamaIndex and OpenAI.
     </div>
 """
 st.markdown(footer_html, unsafe_allow_html=True)
+
+
