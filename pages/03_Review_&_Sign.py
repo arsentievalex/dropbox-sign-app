@@ -107,7 +107,7 @@ if st.session_state['file_name'] is not None:
             time.sleep(2)
 
             with st.sidebar:
-                st.button(label='Refresh', on_click=callback())
+                st.button(label='Refresh', on_click=callback(signature_request_id))
             
 
 footer_html = """
