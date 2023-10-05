@@ -136,7 +136,7 @@ if uploaded_file is None and st.session_state['response_dict'] is not None:
 
     for k, v in st.session_state['response_dict'].items():
         st.subheader(k)
-        st.write(v)
+        st.text(v)
         st.divider()
 
 
