@@ -7,7 +7,6 @@ import time
 
 
 def callback(signature_request_id):
-    time.sleep(15)
     response = signature_request_api.signature_request_files_as_file_url(signature_request_id)
     with st.sidebar:
         st.link_button(label='Download Signed Document', url=response['file_url'])
@@ -108,7 +107,9 @@ if st.session_state['file_name'] is not None:
             time.sleep(2)
 
             with st.sidebar:
-                st.button(label='Refresh', on_click=callback(signature_request_id))
+                refresh = st.button(label='Refresh')
+            if refresh:
+                callback(signature_request_id)
             
 
 footer_html = """
