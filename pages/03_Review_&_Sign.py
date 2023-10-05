@@ -6,6 +6,12 @@ from dropbox_sign import \
 import time
 
 
+def callback(signature_request_id):
+    response = signature_request_api.signature_request_files_as_file_url(signature_request_id)
+    with st.sidebar:
+        st.link_button(label='Download Signed Document', url=response['file_url'])
+    
+
 st.set_page_config(page_title="ProSign - AI Powered NDA Review & Signing", page_icon="📝", layout="wide",
                    initial_sidebar_state="auto", menu_items=None)
 
@@ -99,12 +105,10 @@ if st.session_state['file_name'] is not None:
             components.iframe(url, width=1500, height=1000, scrolling=True)
 
             time.sleep(2)
-            response = signature_request_api.signature_request_files_as_file_url(signature_request_id)
 
             with st.sidebar:
-                st.link_button(label='Download Signed Document', url=response['file_url'])
+                st.button(label='Refresh', on_click=callback())
             
-
 
 footer_html = """
     <div class="footer">
