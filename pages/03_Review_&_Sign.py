@@ -76,7 +76,7 @@ if st.session_state['file_name'] is not None:
                 client_id=st.secrets["dropbox_credentials"]["client_id"],
                 title=contract_name,
                 signers=[signer_1],
-                files=[open(st.session_state['uploaded_file'], "rb")],
+                files=[st.session_state['uploaded_file']],
                 signing_options=signing_options,
                 test_mode=True,
             )
