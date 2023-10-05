@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 import os
 from dropbox_sign import \
     ApiClient, ApiException, Configuration, apis, models
+import time
 
 
 st.set_page_config(page_title="ProSign - AI Powered NDA Review & Signing", page_icon="📝", layout="wide",
@@ -94,10 +95,12 @@ if st.session_state['file_name'] is not None:
             # display the sign url
             components.iframe(url, width=1500, height=1000, scrolling=True)
 
+            time.sleep(10)
             response = signature_request_api.signature_request_files_as_file_url(signature_request_id)
 
             with st.sidebar:
                 st.link_button(label='Download Signed Document', url=response['file_url'])
+            
 
 
 footer_html = """
