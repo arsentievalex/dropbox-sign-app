@@ -70,17 +70,32 @@ if st.session_state['file_name'] is not None:
                 phone=True,
                 default_type="draw",
             )
-        
-            data = models.SignatureRequestCreateEmbeddedRequest(
-                client_id=st.secrets["dropbox_credentials"]["client_id"],
-                title=contract_name,
-                signers=[signer_1],
-                files=[st.session_state['uploaded_file']],
-                signing_options=signing_options,
-                test_mode=True,
-            )
 
-            response = signature_request_api.signature_request_create_embedded(data)
+            try:
+                data = models.SignatureRequestCreateEmbeddedRequest(
+                    client_id=st.secrets["dropbox_credentials"]["client_id"],
+                    title=contract_name,
+                    signers=[signer_1],
+                    files=[st.session_state['uploaded_file']],
+                    signing_options=signing_options,
+                    test_mode=True,
+                )
+    
+                response = signature_request_api.signature_request_create_embedded(data)
+            except ApiException:
+                data = models.SignatureRequestCreateEmbeddedRequest(
+                    client_id=st.secrets["dropbox_credentials"]["client_id"],
+                    title=contract_name,
+                    signers=[signer_1],
+                    files=[open(st.session_state['uploaded_file'], "rb")],
+                    signing_options=signing_options,
+                    test_mode=True,
+                )
+    
+                response = signature_request_api.signature_request_create_embedded(data)
+                
+
+            
             signature_id = response['signature_request']['signatures'][0]['signature_id']
             signature_request_id = response['signature_request']['signature_request_id']
             
