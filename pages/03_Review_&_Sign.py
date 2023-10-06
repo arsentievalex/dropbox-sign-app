@@ -8,6 +8,18 @@ import time
 st.set_page_config(page_title="ProSign - AI Powered NDA Review & Signing", page_icon="📝", layout="wide",
                    initial_sidebar_state="auto", menu_items=None)
 
+
+def download():
+    configuration = Configuration(
+            username=st.secrets["dropbox_credentials"]["username"])
+    with ApiClient(configuration) as api_client:
+        signature_request_api = apis.SignatureRequestApi(api_client)
+        if "signature_request_id" in st.session_state.keys():
+            download_response = signature_request_api.signature_request_files_as_file_url(st.session_state["signature_request_id"])
+            st.info(download_response)
+            print(download_response)
+
+
 page_bg_img = f"""
 <style>
   /* Existing CSS for background image */
@@ -48,6 +60,9 @@ if st.session_state['file_name'] is not None:
         name = st.text_input(' ', placeholder='Your Full Name')
         email = st.text_input(' ', placeholder='Your Email Address')
         click = st.button('Review and Sign')
+        
+        refresh = st.button('refresh', on_click=download())
+
 
     if click and (not name or not email):
         st.error('Please enter your name and email address.')
@@ -98,6 +113,7 @@ if st.session_state['file_name'] is not None:
             
             signature_id = response['signature_request']['signatures'][0]['signature_id']
             signature_request_id = response['signature_request']['signature_request_id']
+            st.session_state["signature_request_id"] = signature_request_id
             
             #signature_request_id = "6672d89f099fb935c277b3e185ece5d1b27e9bca"
             #signature_id = "91948b049d30179cc45ce5d9e83eb5ac"
@@ -111,14 +127,6 @@ if st.session_state['file_name'] is not None:
             
             # display the sign url
             components.iframe(url, width=1500, height=1000, scrolling=True)
-
-        with st.sidebar:
-            refresh = st.button('refresh')
-            if refresh:
-                with ApiClient(configuration) as api_client:
-                    signature_request_api = apis.SignatureRequestApi(api_client)
-                    download_response = signature_request_api.signature_request_files_as_file_url(signature_request_id)
-                    st.write(download_response)
     
 
 footer_html = """
