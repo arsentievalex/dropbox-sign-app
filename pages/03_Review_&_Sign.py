@@ -96,7 +96,15 @@ if st.session_state['file_name'] is not None:
             
             # display the sign url
             components.iframe(url, width=1500, height=1000, scrolling=True)
-            
+
+        with st.sidebar:
+            refresh = st.button('refresh')
+            if refresh:
+                with ApiClient(configuration) as api_client:
+                    signature_request_api = apis.SignatureRequestApi(api_client)
+                    download_response = signature_request_api.signature_request_files_as_file_url(signature_request_id)
+                    st.write(download_response)
+    
 
 footer_html = """
     <div class="footer">
