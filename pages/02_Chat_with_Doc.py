@@ -30,7 +30,17 @@ page_bg_img = f"""
 </style>
 """
 
+sidebar_bg = f"""
+<style>
+[data-testid="stSidebar"]{{
+    z-index: 1;
+}}
+</style>
+"""
+
+
 st.markdown(page_bg_img, unsafe_allow_html=True)
+st.markdown(sidebar_bg, unsafe_allow_html=True)
 
 openai.api_key = st.secrets["openai_credentials"]["openai_key"]
 
@@ -75,6 +85,7 @@ footer_html = """
     <style>
         .footer {
             position: fixed;
+            z-index: 2;
             bottom: 0;
             left: 0;
             right: 0;
@@ -92,5 +103,4 @@ footer_html = """
     </div>
 """
 st.markdown(footer_html, unsafe_allow_html=True)
-
 
