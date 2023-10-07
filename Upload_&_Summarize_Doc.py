@@ -24,7 +24,7 @@ def dict_from_string(response):
     return dictionary
 
 
-#@st.cache_resource(show_spinner=False)
+# @st.cache_resource(show_spinner=False)
 def load_data(file):
     PDFReader = download_loader("PDFReader", custom_path=os.getcwd())
     loader = PDFReader()
@@ -84,13 +84,10 @@ if st.session_state['file_name'] is None:
 
         # use sample file
         sample_toggle = st.toggle('Use sample file')
-
-        st.link_button(label='Download Sample PDF', url='https://drive.google.com/file/d/11cXdPufz1nWc4qnsDdGlyQxtzDUkvM5N/view?usp=sharing')
-        
         if sample_toggle:
             # load sample NDA
             uploaded_file = path + '//' + 'NDA_sample.pdf'
-        
+
 else:
     uploaded_file = None
 
@@ -101,7 +98,7 @@ if uploaded_file is not None and st.session_state['response_dict'] is None:
             file_name = uploaded_file.name
         except AttributeError:
             file_name = "NDA_sample.pdf"
-            
+
         index = load_data(file=uploaded_file)
 
         st.session_state['file_name'] = file_name
@@ -142,7 +139,6 @@ if uploaded_file is not None and st.session_state['response_dict'] is None:
         st.write(v)
         st.divider()
 
-
 if uploaded_file is None and st.session_state['response_dict'] is not None:
     st.header('Summary of {}'.format(st.session_state['file_name']))
     st.info('Got specific questions? Go to the Chat with Doc tab on the left!')
@@ -151,7 +147,6 @@ if uploaded_file is None and st.session_state['response_dict'] is not None:
         st.subheader(k)
         st.write(v)
         st.divider()
-
 
 footer_html = """
     <div class="footer">
