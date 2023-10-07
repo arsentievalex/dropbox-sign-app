@@ -123,7 +123,7 @@ if st.session_state['file_name'] is not None:
             url = sign_url + st.secrets["dropbox_credentials"]["embedded_url"]
             
             # display the sign url
-            components.iframe(url, width=1500, height=1000, scrolling=True)
+            components.iframe(url, width=1200, height=800, scrolling=True)
     
 
 footer_html = """
