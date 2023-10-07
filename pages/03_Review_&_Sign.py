@@ -97,7 +97,7 @@ if st.session_state['file_name'] is not None:
                 )
     
                 response = signature_request_api.signature_request_create_embedded(data)
-            except ApiValueError:
+            except ApiException:
                 data = models.SignatureRequestCreateEmbeddedRequest(
                     client_id=st.secrets["dropbox_credentials"]["client_id"],
                     title=contract_name,
