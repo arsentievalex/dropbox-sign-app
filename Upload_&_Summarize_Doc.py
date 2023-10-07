@@ -140,7 +140,7 @@ if uploaded_file is not None and st.session_state['response_dict'] is None:
         st.divider()
 
 
-if st.session_state['uploaded_file'] is not None and st.session_state['response_dict'] is not None:
+if uploaded_file is None and st.session_state['response_dict'] is not None:
     st.header('Summary of {}'.format(st.session_state['file_name']))
     st.info('Got specific questions? Go to the Chat with Doc tab on the left!')
 
