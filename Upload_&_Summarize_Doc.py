@@ -24,8 +24,8 @@ def dict_from_string(response):
     return dictionary
 
 
-@st.cache_resource(show_spinner=False)
-def load_data(file, file_name):
+#@st.cache_resource(show_spinner=False)
+def load_data(file):
     PDFReader = download_loader("PDFReader", custom_path=os.getcwd())
     loader = PDFReader()
 
@@ -78,12 +78,6 @@ if 'index' not in st.session_state.keys():
 st.title("ProSign - AI Powered NDA Review & Signing 📝")
 st.write('')
 
-st.write(st.session_state['uploaded_file'])
-st.write(st.session_state['file_name'])
-st.write(st.session_state['response_dict'])
-st.write(st.session_state['index'])
-
-
 if st.session_state['file_name'] is None:
     with st.sidebar:
         uploaded_file = st.file_uploader("Upload a document to get started 👇", type=["pdf"])
@@ -105,7 +99,7 @@ if uploaded_file is not None and st.session_state['response_dict'] is None:
         except AttributeError:
             file_name = "NDA_sample.pdf"
             
-        index = load_data(file=uploaded_file, file_name=file_name)
+        index = load_data(file=uploaded_file)
 
         st.session_state['file_name'] = file_name
         st.session_state['index'] = index
