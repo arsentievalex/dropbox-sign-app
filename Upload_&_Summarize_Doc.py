@@ -94,6 +94,9 @@ if st.session_state['file_name'] is None:
 
         # use sample file
         sample_toggle = st.toggle('Use sample file')
+        
+        st.link_button(label='Download Sample PDF', url='https://drive.google.com/file/d/11cXdPufz1nWc4qnsDdGlyQxtzDUkvM5N/view?usp=sharing')
+        
         if sample_toggle:
             # load sample NDA
             uploaded_file = path + '//' + 'NDA_sample.pdf'
