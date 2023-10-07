@@ -86,6 +86,7 @@ if st.session_state['file_name'] is None:
         sample_toggle = st.toggle('Use sample file')
 else:
     uploaded_file = None
+    sample_toggle = None
 
 if sample_toggle:
     # load sample NDA
