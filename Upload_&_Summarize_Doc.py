@@ -170,8 +170,7 @@ footer_html = """
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: #283750
-;
+            background-color: #283750;
             padding: 10px 20px;
             text-align: center;
         }
