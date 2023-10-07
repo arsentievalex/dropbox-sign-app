@@ -70,7 +70,6 @@ if st.session_state['file_name'] is not None:
         email = st.text_input(' ', placeholder='Your Email Address')
         click = st.button('Review and Sign')
 
-        # refresh = st.button('refresh', on_click=download())
 
     if click and (not name or not email):
         st.error('Please enter your name and email address.')
@@ -83,16 +82,14 @@ if st.session_state['file_name'] is not None:
             signer_1 = models.SubSignatureRequestSigner(
                 email_address=email,
                 name=name,
-                order=0,
-            )
+                order=0)
 
             signing_options = models.SubSigningOptions(
                 draw=True,
                 type=True,
                 upload=True,
                 phone=True,
-                default_type="draw",
-            )
+                default_type="draw")
 
             try:
                 data = models.SignatureRequestCreateEmbeddedRequest(
@@ -101,21 +98,23 @@ if st.session_state['file_name'] is not None:
                     signers=[signer_1],
                     files=[st.session_state['uploaded_file']],
                     signing_options=signing_options,
-                    test_mode=True,
-                )
+                    test_mode=True)
 
                 response = signature_request_api.signature_request_create_embedded(data)
             except:
-                data = models.SignatureRequestCreateEmbeddedRequest(
-                    client_id=st.secrets["dropbox_credentials"]["client_id"],
-                    title=contract_name,
-                    signers=[signer_1],
-                    files=[open(st.session_state['uploaded_file'], "rb")],
-                    signing_options=signing_options,
-                    test_mode=True,
-                )
+                try:
+                    data = models.SignatureRequestCreateEmbeddedRequest(
+                        client_id=st.secrets["dropbox_credentials"]["client_id"],
+                        title=contract_name,
+                        signers=[signer_1],
+                        files=[open(st.session_state['uploaded_file'], "rb")],
+                        signing_options=signing_options,
+                        test_mode=True)
 
-                response = signature_request_api.signature_request_create_embedded(data)
+                    response = signature_request_api.signature_request_create_embedded(data)
+                except:
+                    st.error('Oops, Something went wrong. Most likely, my Dropbox Sign API quota of 10 signature requests per day has been reached. Please try again tomorrow.')
+
 
             signature_id = response['signature_request']['signatures'][0]['signature_id']
             signature_request_id = response['signature_request']['signature_request_id']
@@ -140,8 +139,7 @@ footer_html = """
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: #283750
-;
+            background-color: #283750;
             padding: 10px 20px;
             text-align: center;
         }
