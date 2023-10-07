@@ -93,7 +93,12 @@ if sample_toggle:
 
 if uploaded_file is not None and st.session_state['response_dict'] is None:
     with st.spinner(text="Loading and indexing the docs – hang tight!"):
-        file_name = uploaded_file.name
+        # for cases when sample file is used
+        try:
+            file_name = uploaded_file.name
+        except AttributeError:
+            file_name = "NDA_sample.pdf"
+            
         index = load_data(file=uploaded_file, file_name=file_name)
 
         st.session_state['file_name'] = file_name
