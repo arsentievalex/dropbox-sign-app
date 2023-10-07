@@ -84,13 +84,12 @@ if st.session_state['file_name'] is None:
 
         # use sample file
         sample_toggle = st.toggle('Use sample file')
+        if sample_toggle:
+            # load sample NDA
+            uploaded_file = path + '//' + 'NDA_sample.pdf'
+        
 else:
     uploaded_file = None
-    sample_toggle = None
-
-if sample_toggle:
-    # load sample NDA
-    uploaded_file = path + '//' + 'NDA_sample.pdf'
 
 if uploaded_file is not None and st.session_state['response_dict'] is None:
     with st.spinner(text="Loading and indexing the docs – hang tight!"):
