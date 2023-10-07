@@ -63,6 +63,7 @@ page_bg_img = f"""
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 openai.api_key = st.secrets["openai_credentials"]["openai_key"]
+path = os.path.dirname(__file__)
 
 # initiate session state values
 if 'uploaded_file' not in st.session_state.keys():
@@ -88,7 +89,7 @@ else:
 
 if sample_toggle:
     # load sample NDA
-    uploaded_file = 
+    uploaded_file = path + '//' + 'NDA_sample.pdf'
 
 if uploaded_file is not None and st.session_state['response_dict'] is None:
     with st.spinner(text="Loading and indexing the docs – hang tight!"):
