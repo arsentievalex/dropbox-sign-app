@@ -78,6 +78,12 @@ if 'index' not in st.session_state.keys():
 st.title("ProSign - AI Powered NDA Review & Signing 📝")
 st.write('')
 
+st.write(st.session_state['uploaded_file'])
+st.write(st.session_state['file_name'])
+st.write(st.session_state['response_dict'])
+st.write(st.session_state['index'])
+
+
 if st.session_state['file_name'] is None:
     with st.sidebar:
         uploaded_file = st.file_uploader("Upload a document to get started 👇", type=["pdf"])
