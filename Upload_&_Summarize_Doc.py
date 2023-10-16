@@ -36,8 +36,7 @@ def load_data(file):
     return index
 
 
-st.set_page_config(page_title="ProSign - AI Powered NDA Review & Signing", page_icon="📝", layout="wide",
-                   initial_sidebar_state="auto", menu_items=None)
+st.set_page_config(page_title="ProSign - AI Powered NDA Review & Signing", page_icon="📝", layout="wide", menu_items=None)
 
 page_bg_img = f"""
 <style>
